@@ -2,7 +2,7 @@ const express = require('express')
 const database = require('../Models/database')
 var app = express.Router()
 
-app.get('/', (req, res) => {
+app.get('/',(req, res) => {
   var ifsc = req.query.ifsc;
   var bank_name = req.query.bank_name;
   var city = req.query.city;
@@ -35,6 +35,5 @@ app.get('/', (req, res) => {
     res.status(404).send("Not a valid filter")
   }
 })
-
 
 module.exports = app;

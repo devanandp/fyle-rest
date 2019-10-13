@@ -4,11 +4,17 @@ const db = require('./Models/database')
 const routes = require('./Routes/branchDetails') 
 const tokenGeneration = require('./Authentication/tokenGeneration')
 const auth = require('./Authentication/authentication')
+var bodyParser = require('body-parser');
 
 const port = process.env.SERVER_PORT || 3020
 const app = express()
 
-app.use('/getdata',tokenGeneration);
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
+
+app.use('/tokengen',tokenGeneration);
 app.use('/banks', auth.checkToken, routes);
 
 app.listen(port, () => {
