@@ -13,13 +13,47 @@ database.authenticate().then(() => {
     console.error('false',err)
 })
 
-const Bank = database.define('testbank', {
-    // id: {
-    //     type: Sequelize.INTEGER, primaryKey: true
-    // },
+const Banks = database.define('banks',{
     name: {
         type: Sequelize.STRING
+    },
+    id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true
     }
-});
+},{
+    underscored: true,
+    timestamps: false
+  })
 
-module.exports = {Bank,database}
+const Branches = database.define('branches', {
+    ifsc: {
+        type: Sequelize.STRING,
+        primaryKey: true
+    },
+    bank_id: {
+        type: Sequelize.INTEGER
+    },
+    branch: {
+        type: Sequelize.STRING
+    },
+    address: {
+        type: Sequelize.STRING
+    },
+    city: {
+        type: Sequelize.STRING
+    },
+    district: {
+        type: Sequelize.STRING
+    },
+    state: {
+        type: Sequelize.STRING
+    }
+},{
+    underscored: true,
+    timestamps: false
+  });
+
+Banks.hasMany(Branches)
+Branches.belongsTo(Banks)
+module.exports = {Banks,Branches,database}
