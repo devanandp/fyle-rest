@@ -1,5 +1,6 @@
 const express = require('express')
 const database = require('./database')
+const resultProcessing = require('./json_parser')
 const port = process.env.SERVER_PORT || 3020
 const app = express()
 
@@ -27,9 +28,9 @@ app.get('/banks', (req, res) => {
       attributes: ['name','id'],
       offset: offset,
       limit: limit
-    }).then(result => {
-          res.json(result)
-          })
+    }).then(result => {res.json(result)}
+    
+    )
   } else {
     whereClause = {
       name: bank_name
@@ -48,7 +49,7 @@ app.get('/banks', (req, res) => {
       attributes: ['name', 'id'],
       where: whereClause
     }).then(result => {
-          res.json(result)
+          res.json(resultProcessing.jsonParser(result))
     })
   }
 })
