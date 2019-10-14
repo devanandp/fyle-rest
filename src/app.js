@@ -1,9 +1,9 @@
 const express = require('express')
 const dotenv = require('dotenv').config();
-const db = require('./src/Models/database')
-const routes = require('./src/Routes/branchDetails') 
-const tokenGeneration = require('./src/Authentication/tokenGeneration')
-const auth = require('./src/Authentication/authentication')
+const db = require('./Models/database')
+const routes = require('./Routes/branchDetails') 
+const tokenGeneration = require('./Authentication/tokenGeneration')
+const auth = require('./Authentication/authentication')
 var bodyParser = require('body-parser');
 
 const port = process.env.PORT || 3020
