@@ -14,8 +14,8 @@ database.authenticate().then(() => {
 })
 
 const models = {}
-models.Banks =  require('./banks')(database,Sequelize)
-models.Branches =  require('./branches')(database,Sequelize)
+models.Banks =  require('./Banks')(database,Sequelize)
+models.Branches =  require('./Branches')(database,Sequelize)
 models.Banks.hasMany(models.Branches)
 models.Branches.belongsTo(models.Banks)
 
