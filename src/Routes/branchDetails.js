@@ -2,7 +2,7 @@ const express = require('express')
 const database = require('../Models/database')
 var app = express.Router()
 
-app.get('/',(req, res) => {
+app.get('/', (req, res) => {
   var ifsc = req.query.ifsc;
   var bank_name = req.query.bank_name;
   var city = req.query.city;
@@ -10,28 +10,35 @@ app.get('/',(req, res) => {
   var limit = req.query.limit;
   if (offset == undefined) offset = 0;
   if (limit == undefined) limit = 10;
-  if((ifsc || (bank_name && city))){
-  if (ifsc){
-    bankWhereClause = { };
-    branchWhereClause = {ifsc: ifsc}
+  if ((ifsc || (bank_name && city))) {
+    if (ifsc != undefined) {
+      database.models.Banks.findAll({
+        include: [
+          {
+            model: database.models.Branches,
+            where: { ifsc: ifsc },
+          },
+        ],
+        attributes: ['name', 'id']
+      }).then(result => { res.json(result) })
+    }
+    else {
+      database.models.Banks.findAll({
+        include: [
+          {
+            model: database.models.Branches,
+            where: { city: city },
+            offset: offset,
+            limit: limit
+          },
+        ],
+        where: { name: bank_name },
+        attributes: ['name', 'id']
+      }).then(result => { res.json(result) })
+    }
   }
+
   else {
-    bankWhereClause = {bank_name: bank_name };
-    branchWhereClause = {city: city}
-  }
- database.models.Banks.findAll({
-    include: [
-      {
-        model: database.models.Branches,
-        where: branchWhereClause
-      }
-    ],
-    attributes: ['name','id'],
-    where: bankWhereClause,
-    offset: offset,
-    limit: limit
-  }).then(result => {res.json(result)})}
-  else{
     res.status(404).send("Not a valid filter")
   }
 })
