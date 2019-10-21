@@ -4,6 +4,7 @@ CURL COMMANDS
 API 1 : POST API to generate JWT Tokens
 
 Curl for JWT token generation: curl --header "Content-Type: application/json"  --request POST  https://fyle-rest-interview.herokuapp.com/tokengen --data "{\"username\":\"admin\",\"password\":\"password\"}"
+
 Sample Output :
 {"success":true,"message":"Authentication successful!","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicGFzc3dvcmQiOiJwYXNzd29yZCIsImlhdCI6MTU3MTEyNjcyOCwiZXhwIjoxNTcxNTU4NzI4fQ.x_Tn7LLZ6JV5V6NDGQiwG4VL9mjJqhyz50a2pBYNIi0"}
 Note : Default value for username and password is set as Username: admin and Password: password. If any other value is passed in those fields, then the output will be :
