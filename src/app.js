@@ -5,7 +5,8 @@ const routes = require('./Routes/branchDetails')
 const tokenGeneration = require('./Authentication/tokenGeneration')
 const auth = require('./Authentication/authentication')
 var bodyParser = require('body-parser');
-
+var Cat = require('cat-me')
+Cat();
 const port = process.env.PORT || 3020
 const app = express()
 
